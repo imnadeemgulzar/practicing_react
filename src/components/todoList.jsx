@@ -4,12 +4,12 @@ import TodoItem from './todoItem'
 const TodoList = ({todoList,handleStateChange,handleRemoveItem}) => {
   return (
     <div>
-      <h2>Todo List</h2>
+      <h2 className='text-white text-xl mt-6'>Todo List</h2>
       <div className='flex flex-wrap'>
-      {todoList.map((item) => {
+      {todoList.length ? todoList.map((item) => {
         return <TodoItem key={item.id} item={item} handleStateChange={handleStateChange} handleRemoveItem={handleRemoveItem}/>
       }
-    )}
+    ) : <h1 className='text-white text-4xl mt-6 mx-auto'>No Tasks Available</h1> }
 </div>
     </div>
   )

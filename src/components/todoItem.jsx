@@ -21,11 +21,11 @@ const TodoItem = ({ item, handleStateChange, handleRemoveItem }) => {
       } w-2/8 m-4 p-3 relative`}
     >
       <h2>{item.itemName}</h2>
-      <select name="status" onChange={handleChange}>
+      <select name="status" onChange={handleChange} value={item.itemStatus}>
         <option value="Status" disabled>
           Status
         </option>
-        <option value="pending">pending</option>
+        <option value="Pending">pending</option>
         <option value="In Progress">in Progress</option>
         <option value="Done">Done</option>
       </select>

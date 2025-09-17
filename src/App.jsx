@@ -1,24 +1,22 @@
 import { useState } from "react";
 import TodoInput from "./components/todoInput";
 import TodoList from "./components/todoList";
+import Filters from "./components/filters";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [filter, setFilter] = useState('All');
 
-  const handleStateChange = (id,newStatus) => {
-    setTodoList(prev => 
-      prev.map((item) => 
-        item.id === id ? {...item, itemStatus: newStatus} : item
+  const handleStateChange = (id, newStatus) => {
+    setTodoList((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, itemStatus: newStatus } : item
       )
-    )
-  }
+    );
+  };
   const handleRemoveItem = (id) => {
-    setTodoList(prev => 
-      prev.filter(item => 
-       item.id !== id 
-      )
-    )
-  }
+    setTodoList((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const addItem = (itemName) => {
     const newItem = {
@@ -28,12 +26,24 @@ function App() {
     };
     setTodoList([...todoList, newItem]);
   };
-  console.log(todoList, "?????");
+
+  const filterItem = (val) => {
+    setFilter(val);
+  };
+    const filteredTodos =
+      filter === "All"
+        ? todoList
+        : todoList.filter((item) => item.itemStatus === filter)
   return (
     <>
       <div className="h-[100vh] bg-gray-600 py-20 text-center">
         <TodoInput addItem={addItem} />
-        <TodoList todoList={todoList} handleStateChange={handleStateChange} handleRemoveItem={handleRemoveItem}/>
+        <Filters filterItem={filterItem} filter={filter}/>
+        <TodoList
+          todoList={filteredTodos}
+          handleStateChange={handleStateChange}
+          handleRemoveItem={handleRemoveItem}
+        />
       </div>
     </>
   );
