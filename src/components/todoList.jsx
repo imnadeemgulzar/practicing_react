@@ -1,8 +1,7 @@
 import React from 'react'
 import TodoItem from './todoItem'
 
-const TodoList = ({todoList,handleStateChange,handleRemoveItem,editItem}) => {
-  console.log(todoList,'..........')
+const TodoList = ({todoList,handleStateChange,handleRemoveItem,editItem,searchTodo}) => {
   return (
     <div>
       <h2 className='text-white text-xl mt-6'>Todo List</h2>

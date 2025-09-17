@@ -2,10 +2,12 @@ import { useState } from "react";
 import TodoInput from "./components/todoInput";
 import TodoList from "./components/todoList";
 import Filters from "./components/filters";
+import SearchTodo from "./components/searchTodo";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [filter, setFilter] = useState("All");
+  const [searchTerm,setSearchTerm] = useState('');
 
   const handleStateChange = (id, newStatus) => {
     setTodoList((prev) =>
@@ -30,10 +32,6 @@ function App() {
   const filterItem = (val) => {
     setFilter(val);
   };
-  const filteredTodos =
-    filter === "All"
-      ? todoList
-      : todoList.filter((item) => item.itemStatus === filter);
 
   const editItem = (id,newText) => {
     setTodoList((prev) =>
@@ -41,13 +39,29 @@ function App() {
     );
   };
 
+  const getVisibleTodos = () => {
+    const searched = searchTerm.trim().toLowerCase();
+    let result =  
+    filter === "All"
+      ? todoList
+      : todoList.filter((item) => item.itemStatus === filter);
+
+      if(searched) {
+        result = result.filter((item) => 
+        item.itemName.toLowerCase().includes(searched)
+        );
+      }
+return result;
+  }
+
   return (
     <>
       <div className="h-[100vh] bg-gray-600 py-20 text-center">
         <TodoInput addItem={addItem} />
         <Filters filterItem={filterItem} filter={filter} />
+        <SearchTodo setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
         <TodoList
-          todoList={filteredTodos}
+          todoList={getVisibleTodos()}
           handleStateChange={handleStateChange}
           handleRemoveItem={handleRemoveItem}
           editItem = {editItem}
