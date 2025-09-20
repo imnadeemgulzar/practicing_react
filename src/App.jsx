@@ -108,10 +108,11 @@ import WeatherInput from './components/weatherApp/weatherInput'
 import Weather from './components/weatherApp/weather'
 const App = () => {
   const api_key = '991f242618034bfcb9841537252009'
-const [city,setCity] = useState('');
+const [city,setCity] = useState('london');
 const [weather,setWeather] = useState(null);
 const [loading,setLoading] = useState(false);
 const [error,setError] = useState(null);
+const [theme,setTheme] = useState(true);
 
 
 const fetchData = async () => {
@@ -120,13 +121,14 @@ const fetchData = async () => {
   try {
     setLoading(true);
     setError(null)
-    const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=${api_key}&q=${city}`);
+    const res = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${city}&days=5`);
     const data = await res.json();
 if(data.error){
   setError(data.error.message);
   setWeather(null)
 }else{
   setWeather(data);
+  console.log(weather)
 }
   } catch (error) {
     setError('Failed to fetch weather data')
@@ -140,14 +142,17 @@ useEffect(() => {
   if(city)
 fetchData();
 },[city])
-
+const handleMode = () => {
+  setTheme(!theme)
+}
   return (
-    <div className='bg-gray-600 py-20 text-center'>
-     <h1>Weather App</h1>
+    <div className={`${theme && 'bg-gray-600'} bg-gray-200 py-20 text-center`}>
+      <button className={`px-3 py-1 cursor-pointer ${theme ? 'bg-gray-200 text-gray-800' : 'bg-gray-800 text-gray-200'} `} onClick={handleMode}>Change Theme</button>
+     <h1 className={`text-3xl ${theme ? 'text-gray-200' : 'text-gray-800'} font-bold mt-1`}>Weather App</h1>
       <WeatherInput setCity={setCity}/>
-       {loading && <p>Loading...</p>}
+       {loading && <div className="mx-auto mt-3 h-12 w-12 rounded-full border-4 border-t-4 border-blue-500 border-t-transparent animate-spin"></div>}
       {error && <p className="text-red-400">{error}</p>}
-      {weather && <Weather weather={weather} />}
+      {weather && <Weather weather={weather} theme={theme}/>}
     </div>
   )
 }
