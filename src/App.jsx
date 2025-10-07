@@ -147,33 +147,61 @@ import { useState } from "react"
 //  export default App
 
 
-const stepsInfo = [{id:1,message:'Learn React'},{id:2,message:'Apply for jobs'},{id:3,message:'Get Selected'}]
+// const stepsInfo = [{id:1,message:'Learn React'},{id:2,message:'Apply for jobs'},{id:3,message:'Get Selected'}]
+// const App = () => {
+//   const [active,setActive] = useState(0)
+// const handlePrev = () => {
+//   if(active <= 2){
+//   setActive(active - 1)
+//   }  
+// }
+// const handleNext = () => {
+//   if(active >= 0){
+//   setActive(active + 1)
+//   }  
+// }
+//   return (
+//     <div className='flex items-center justify-center'>
+//       <div className='w-80 bg-gray-300 mt-8 p-4'>
+//         <div className='flex justify-between'>
+//           <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 0 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>1</div>
+//           <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 1 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>2</div>
+//           <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 2 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>3</div>
+//         </div>
+//         <p className='text-2xl font-bold text-center my-4'>{stepsInfo[active].message}</p>
+//         <div className='flex justify-between'>
+//           <button onClick={handlePrev} disabled={active === 0} className='bg-blue-700 text-gray-100 px-4 py-1'>Previous</button>
+//           <button onClick={handleNext}  disabled={active === 2} className='bg-blue-700 text-gray-100 px-4 py-1'>Next</button>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default App
+
+import Header from "./components/travelApp/Header"
+import Form from "./components/travelApp/Form"
+import Items from "./components/travelApp/Items"
+import Footer from "./components/travelApp/Footer"
+
 const App = () => {
-  const [active,setActive] = useState(0)
-const handlePrev = () => {
-  if(active <= 2){
-  setActive(active - 1)
-  }  
-}
-const handleNext = () => {
-  if(active >= 0){
-  setActive(active + 1)
-  }  
-}
+  const [quantity,setQuantity] = useState(1);
+  const [itemName,setItemName] = useState('');
+  const [itemList,setItemList] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {id:Math.round(Math.random() * 65), quantity,itemName,isPacked:false}
+    setItemList([...itemList,newItem])
+    setQuantity(1);
+    setItemName('');
+  }
   return (
-    <div className='flex items-center justify-center'>
-      <div className='w-80 bg-gray-300 mt-8 p-4'>
-        <div className='flex justify-between'>
-          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 0 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>1</div>
-          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 1 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>2</div>
-          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 2 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>3</div>
-        </div>
-        <p className='text-2xl font-bold text-center my-4'>{stepsInfo[active].message}</p>
-        <div className='flex justify-between'>
-          <button onClick={handlePrev} disabled={active === 0} className='bg-blue-700 text-gray-100 px-4 py-1'>Previous</button>
-          <button onClick={handleNext}  disabled={active === 2} className='bg-blue-700 text-gray-100 px-4 py-1'>Next</button>
-        </div>
-      </div>
+    <div>
+      <Header/>
+      <Form handleSubmit = {handleSubmit} quantity={quantity} setQuantity={setQuantity} itemName={itemName} setItemName={setItemName}/>
+      <Items itemList={itemList} setItemList={setItemList}/>
+      <Footer itemList ={itemList}/>
     </div>
   )
 }
