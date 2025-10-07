@@ -4,6 +4,8 @@
 // import Filters from "./components/filters";
 // import SearchTodo from "./components/searchTodo";
 
+import { useState } from "react"
+
 // function App() {
 //   const [todoList, setTodoList] = useState(() => {
 //     const saved = localStorage.getItem('itemList');
@@ -88,107 +90,90 @@
 
 
 
-// // import React, { useEffect, useState } from 'react'
-// // import WeatherInput from './components/weatherApp/weatherInput'
-// // import Weather from './components/weatherApp/weather'
-// // const App = () => {
-// //   const api_key = '991f242618034bfcb9841537252009'
-// // const [city,setCity] = useState('london');
-// // const [weather,setWeather] = useState(null);
-// // const [loading,setLoading] = useState(false);
-// // const [error,setError] = useState(null);
-// // const [theme,setTheme] = useState(true);
+// import React, { useEffect, useState } from 'react'
+// import WeatherInput from './components/weatherApp/weatherInput'
+// import Weather from './components/weatherApp/weather'
+// const App = () => {
+//   const api_key = '991f242618034bfcb9841537252009'
+// const [city,setCity] = useState('london');
+// const [weather,setWeather] = useState(null);
+// const [loading,setLoading] = useState(false);
+// const [error,setError] = useState(null);
+// const [theme,setTheme] = useState(true);
 
 
-// // const fetchData = async () => {
+// const fetchData = async () => {
 
-// //   if(!city) return;
-// //   try {
-// //     setLoading(true);
-// //     setError(null)
-// //     const res = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${city}&days=5`);
-// //     const data = await res.json();
-// // if(data.error){
-// //   setError(data.error.message);
-// //   setWeather(null)
-// // }else{
-// //   setWeather(data);
-// //   console.log(weather)
-// // }
-// //   } catch (error) {
-// //     setError('Failed to fetch weather data')
-// //   }
-// //   finally {
-// //     setLoading(false)
-// //   }
-// // }
+//   if(!city) return;
+//   try {
+//     setLoading(true);
+//     setError(null)
+//     const res = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${city}&days=5`);
+//     const data = await res.json();
+// if(data.error){
+//   setError(data.error.message);
+//   setWeather(null)
+// }else{
+//   setWeather(data);
+//   console.log(weather)
+// }
+//   } catch (error) {
+//     setError('Failed to fetch weather data')
+//   }
+//   finally {
+//     setLoading(false)
+//   }
+// }
 
-// // useEffect(() => {
-// //   if(city)
-// // fetchData();
-// // },[city])
-// // const handleMode = () => {
-// //   setTheme(!theme)
-// // }
-// //   return (
-// //     <div className={`${theme && 'bg-gray-600'} bg-gray-200 py-20 text-center`}>
-// //       <button className={`px-3 py-1 cursor-pointer ${theme ? 'bg-gray-200 text-gray-800' : 'bg-gray-800 text-gray-200'} `} onClick={handleMode}>Change Theme</button>
-// //      <h1 className={`text-3xl ${theme ? 'text-gray-200' : 'text-gray-800'} font-bold mt-1`}>Weather App</h1>
-// //       <WeatherInput setCity={setCity}/>
-// //        {loading && <div className="mx-auto mt-3 h-12 w-12 rounded-full border-4 border-t-4 border-blue-500 border-t-transparent animate-spin"></div>}
-// //       {error && <p className="text-red-400">{error}</p>}
-// //       {weather && <Weather weather={weather} theme={theme}/>}
-// //     </div>
-// //   )
-// // }
+// useEffect(() => {
+//   if(city)
+// fetchData();
+// },[city])
+// const handleMode = () => {
+//   setTheme(!theme)
+// }
+//   return (
+//     <div className={`${theme && 'bg-gray-600'} bg-gray-200 py-20 text-center`}>
+//       <button className={`px-3 py-1 cursor-pointer ${theme ? 'bg-gray-200 text-gray-800' : 'bg-gray-800 text-gray-200'} `} onClick={handleMode}>Change Theme</button>
+//      <h1 className={`text-3xl ${theme ? 'text-gray-200' : 'text-gray-800'} font-bold mt-1`}>Weather App</h1>
+//       <WeatherInput setCity={setCity}/>
+//        {loading && <div className="mx-auto mt-3 h-12 w-12 rounded-full border-4 border-t-4 border-blue-500 border-t-transparent animate-spin"></div>}
+//       {error && <p className="text-red-400">{error}</p>}
+//       {weather && <Weather weather={weather} theme={theme}/>}
+//     </div>
+//   )
+// }
 
-// // export default App
-// /////////////////////////////////  js-practice  //////////////////////////////////////////////////////////////
-import React from 'react'
+//  export default App
 
+
+const stepsInfo = [{id:1,message:'Learn React'},{id:2,message:'Apply for jobs'},{id:3,message:'Get Selected'}]
 const App = () => {
-const val1 = 23
-
-if(true){
-  var val2 = 24
-  console.log(val1 + val2)
+  const [active,setActive] = useState(0)
+const handlePrev = () => {
+  if(active <= 2){
+  setActive(active - 1)
+  }  
 }
-  console.log(val1 + val2)
-
-
-  // comparison and type coersion 
-const strictCompare = (a,b) => {
-if(a === b) return "same type and value"
-if(a == b) return "same value, different type"
-if(a != b) return "different"
+const handleNext = () => {
+  if(active >= 0){
+  setActive(active + 1)
+  }  
 }
- console.log(strictCompare(2,2)) // same
- console.log(strictCompare(2,'2')) // diff type
- console.log(strictCompare(4,"4")) // diff type
- console.log(strictCompare(null,0)) // diff type
- console.log(strictCompare(false,undefined)) // diff type
- console.log(strictCompare(undefined,null)) // diff type
-
-//  heap and stack memory 
-// stack for primitives 
-let num1 = 10;
-let num2 = num1;
-num2 += 5;
-console.log(num1,num2)
-// heap for refrences 
-let obj1 = {
-  name : 'nadeem',
-  age : 25
-}
-let obj2 = obj1;
-obj2.age = 34;
-obj2.name = 'ali';
-console.log(obj1,obj2)
-
-
   return (
-    <div>
-      <h1 className='text-3xl font-bold text-center mt-4'>Practicing-Basic-JS</h1>
+    <div className='flex items-center justify-center'>
+      <div className='w-80 bg-gray-300 mt-8 p-4'>
+        <div className='flex justify-between'>
+          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 0 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>1</div>
+          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 1 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>2</div>
+          <div className={`h-8 w-8 text-center text-2xl rounded-full ${active === 2 ? 'bg-blue-600 text-gray-100' : 'bg-gray-100 text-gray-800'} `}>3</div>
+        </div>
+        <p className='text-2xl font-bold text-center my-4'>{stepsInfo[active].message}</p>
+        <div className='flex justify-between'>
+          <button onClick={handlePrev} disabled={active === 0} className='bg-blue-700 text-gray-100 px-4 py-1'>Previous</button>
+          <button onClick={handleNext}  disabled={active === 2} className='bg-blue-700 text-gray-100 px-4 py-1'>Next</button>
+        </div>
+      </div>
     </div>
   )
 }
